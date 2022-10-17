@@ -1,0 +1,12 @@
+dam\nachogago\ioc\controllers\UsuarioController.class
+dam\nachogago\ioc\controllers\AuthController.class
+dam\nachogago\ioc\controllers\EscritorController.class
+dam\nachogago\ioc\repositories\EscritorRepository.class
+dam\nachogago\ioc\services\UsuarioService.class
+dam\nachogago\ioc\IocApplication.class
+dam\nachogago\ioc\exceptions\UsuarioException.class
+dam\nachogago\ioc\repositories\UsuarioRepository.class
+dam\nachogago\ioc\models\EscritorModel.class
+dam\nachogago\ioc\utils\JWTUtil.class
+dam\nachogago\ioc\models\UsuarioModel.class
+dam\nachogago\ioc\services\EscritorService.class

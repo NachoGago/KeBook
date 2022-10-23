@@ -28,7 +28,7 @@ public class UsuarioController {
      */
     @GetMapping()
     public ArrayList<UsuarioModel> obtenerUsuarios(@RequestHeader(value = "Token") String token){
-        if(!jwtUtil.comprobarToken(token)){
+        if(!jwtUtil.findTokenByValue(token)){
             throw new UsuarioException("Token invalido");
         }else{
             return usuarioService.obtenerUsuarios();
@@ -55,7 +55,7 @@ public class UsuarioController {
     @GetMapping(path = "/{id}")
     public UsuarioModel obtenerUsuarioPorId(@RequestHeader(value = "Token") String token,
                                             @PathVariable("id") long id) throws UsuarioException {
-        if(!jwtUtil.comprobarToken(token)){
+        if(!jwtUtil.findTokenByValue(token)){
             throw new UsuarioException("Token invalido");
         }else{
             return this.usuarioService.obtenerPorId(id);
@@ -72,7 +72,7 @@ public class UsuarioController {
     @DeleteMapping(path = "/{id}")
     public boolean eliminarUsuarioPorId(@RequestHeader(value = "Token") String token,
                                         @PathVariable("id") long id){
-        if(!jwtUtil.comprobarToken(token)){
+        if(!jwtUtil.findTokenByValue(token)){
             throw new UsuarioException("Token invalido");
         }else{
             return this.usuarioService.eliminarUsuario(id);
@@ -89,7 +89,7 @@ public class UsuarioController {
     @GetMapping("/query")
     public UsuarioModel obtenerUsuarioPorCorreo(@RequestHeader(value = "Token") String token,
                                                 @RequestParam("correo") String correo){
-        if(!jwtUtil.comprobarToken(token)){
+        if(!jwtUtil.findTokenByValue(token)){
             throw new UsuarioException("Token invalido");
         }else{
             return this.usuarioService.obtenerPorCorreo(correo);

@@ -97,9 +97,15 @@ public class JWTUtil {
     /**
      * Elimina un token de la lista de tokens activos.
      * @param id Identificador del usuario que tiene asignado el token.
+     * @return Devuelve true o false dependiendo de si lo ha podido remover correctamente.
      */
-    public void deleteToken(long id){
-        tokensMap.remove(id);
+    public boolean deleteToken(long id){
+        if(findTokenByKey(id)){
+            tokensMap.remove(id);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -116,7 +122,17 @@ public class JWTUtil {
      * @param token Token a comprobar.
      * @return Devuelve un booleano indicando si el token esta activo o no.
      */
-    public boolean comprobarToken(String token){
+    public boolean findTokenByValue(String token){
         return tokensMap.containsValue(token);
     }
+
+    /**
+     * Comprueba si hay un token asociado al id introducido por parametro.
+     * @param id Id del usuario
+     * @return Devuelve true o false dependiendo de si ha encontrado la clave en el mapa.
+     */
+    public boolean findTokenByKey(long id){
+        return tokensMap.containsKey(id);
+    }
+
 }

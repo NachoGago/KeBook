@@ -52,7 +52,7 @@ public class UsuarioService {
      * @return Devuelve los datos del usuario.
      */
     public UsuarioModel obtenerPorCorreo(String correo){
-        return usuarioRepository.findByCorreo(correo);
+        return usuarioRepository.findByCorreo(correo).orElseThrow(()-> new UsuarioException("No s'ha trobat l'usuari."));
     }
 
     /**
@@ -76,11 +76,7 @@ public class UsuarioService {
      * @return Devuelve los datos del usuario.
      */
     public UsuarioModel obtenerUsuarioPorCredenciales(String correo, String contrasena) {
-        String query = "FROM UsuarioModel WHERE correo = :correo AND contrasena = :contrasena";
-        List<UsuarioModel> lista = entityManager.createQuery(query).
-                setParameter("correo", correo).
-                setParameter("contrasena", contrasena).
-                getResultList();
+        List<UsuarioModel> lista = usuarioRepository.obtenerUsuarioPorCredenciales(correo, contrasena);
 
         if(lista.isEmpty()){
             return null;
@@ -89,6 +85,19 @@ public class UsuarioService {
         }
     }
 
+    /**
+     * Obtiene los datos de un usuario pasando su correo y su contrasena comprobando que coincidan y si es administrador.
+     * @param correo Correo del usuario del que queremos los datos.
+     * @param contrasena Contrasena del usuario del que queremos los datos.
+     * @return Devuelve los datos del usuario.
+     */
+    public UsuarioModel obtenerUsuarioPorCredencialesAdmin(String correo, String contrasena) {
+        List<UsuarioModel> lista = usuarioRepository.obtenerUsuarioPorCredencialesAdmin(correo, contrasena);
 
-
+        if(lista.isEmpty()){
+            return null;
+        }else {
+            return lista.get(0);
+        }
+    }
 }

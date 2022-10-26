@@ -36,4 +36,13 @@ public interface UsuarioRepository extends CrudRepository<UsuarioModel, Long>{
      */
     @Query(value = "SELECT u FROM UsuarioModel u WHERE u.correo = ?1 AND u.contrasena = ?2 AND u.isAdmin = true")
     List<UsuarioModel> obtenerUsuarioPorCredencialesAdmin(String correo, String contrasena);
+
+    /**
+     * Cambia la contrasena de un usuario.
+     * @param contrasenaNueva Nueva contrasena para el usuario.
+     * @param id Id del usuario sobre el que queremos modificar la contrasena.
+     * @param contrasenaAntigua Contrasena antigua del usuario.
+     */
+    @Query(value = "UPDATE UsuarioModel u SET u.contrasena = 1? WHERE u.id = 2? AND u.contrasena = 3?")
+    void cambiarContrasena(String contrasenaNueva, long id, String contrasenaAntigua);
 }

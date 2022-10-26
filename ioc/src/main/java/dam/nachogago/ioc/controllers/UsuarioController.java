@@ -97,4 +97,24 @@ public class UsuarioController {
 
     }
 
+    /**
+     * Cambia la contrasena de un usuario.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param id Id del usuario sobre el que queremos modificar la contrasena.
+     * @param contrasenaAntigua Contrasena antigua del usuario.
+     * @param contrasenaNueva Nueva contrasena para el usuario.
+     * @return Devuelve un booleano indicando si la operacion ha tenido exito o no.
+     */
+    @PostMapping(path = "/contrasena/cambiar")
+    public boolean cambiarContrasena(@RequestHeader(value = "Token") String token,
+                                     @RequestParam("id") long id,
+                                     @RequestParam("contrasenaAntigua") String contrasenaAntigua,
+                                     @RequestParam("contrasenaNueva") String contrasenaNueva){
+        if(!jwtUtil.findTokenByValue(token)){
+            throw new UsuarioException("Token invalido");
+        }else{
+            return usuarioService.cambiarContrasena(contrasenaNueva, id, contrasenaAntigua);
+        }
+    }
+
 }

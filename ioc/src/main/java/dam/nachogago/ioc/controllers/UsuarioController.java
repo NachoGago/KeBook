@@ -86,7 +86,7 @@ public class UsuarioController {
      * @param correo Correo del usuario del que queremos recuperar los datos.
      * @return Devuelve los datos del usuario.
      */
-    @GetMapping("/query")
+    @GetMapping("/correo")
     public UsuarioModel obtenerUsuarioPorCorreo(@RequestHeader(value = "Token") String token,
                                                 @RequestParam("correo") String correo){
         if(!jwtUtil.findTokenByValue(token)){

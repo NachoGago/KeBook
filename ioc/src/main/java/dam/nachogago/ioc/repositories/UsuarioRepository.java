@@ -43,6 +43,6 @@ public interface UsuarioRepository extends CrudRepository<UsuarioModel, Long>{
      * @param id Id del usuario sobre el que queremos modificar la contrasena.
      * @param contrasenaAntigua Contrasena antigua del usuario.
      */
-    @Query(value = "UPDATE UsuarioModel u SET u.contrasena = 1? WHERE u.id = 2? AND u.contrasena = 3?")
+    @Query(value = "UPDATE UsuarioModel u SET u.contrasena = ?1 WHERE u.id = ?2 AND u.contrasena = ?3")
     void cambiarContrasena(String contrasenaNueva, long id, String contrasenaAntigua);
 }

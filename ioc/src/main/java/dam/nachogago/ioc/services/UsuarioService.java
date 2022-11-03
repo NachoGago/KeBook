@@ -44,7 +44,7 @@ public class UsuarioService {
      * @param id Identificador del usuario del que queremos los datos.
      * @return Devuelve los datos del usuario.
      */
-    public UsuarioModel obtenerPorId(long id) {
+    public UsuarioModel obtenerPorId(int id) {
         return usuarioRepository.findById(id).orElseThrow(()-> new UsuarioException("No s'ha trobat l'usuari."));
     }
 
@@ -62,7 +62,7 @@ public class UsuarioService {
      * @param id Identificador del usuario que queremos eliminar.
      * @return Devuelve un booleano indicando si la operacion ha tenido operacio.
      */
-    public boolean eliminarUsuario(long id){
+    public boolean eliminarUsuario(int id){
         try{
             usuarioRepository.deleteById(id);
             return true;
@@ -110,7 +110,7 @@ public class UsuarioService {
      * @param contrasenaAntigua Contrasena antigua del usuario.
      * @return Devuelve un booleano indicando si la operacion ha tenido exito o no.
      */
-    public boolean cambiarContrasena(String contrasenaNueva, long id, String contrasenaAntigua){
+    public boolean cambiarContrasena(String contrasenaNueva, int id, String contrasenaAntigua){
         usuarioRepository.cambiarContrasena(contrasenaNueva, id, contrasenaAntigua);
 
         UsuarioModel usuario = this.obtenerPorId(id);

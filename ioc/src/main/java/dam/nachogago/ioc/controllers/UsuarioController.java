@@ -54,7 +54,7 @@ public class UsuarioController {
      */
     @GetMapping(path = "/{id}")
     public UsuarioModel obtenerUsuarioPorId(@RequestHeader(value = "Token") String token,
-                                            @PathVariable("id") long id) throws UsuarioException {
+                                            @PathVariable("id") int id) throws UsuarioException {
         if(!jwtUtil.findTokenByValue(token)){
             throw new UsuarioException("Token invalido");
         }else{
@@ -71,7 +71,7 @@ public class UsuarioController {
      */
     @DeleteMapping(path = "/{id}")
     public boolean eliminarUsuarioPorId(@RequestHeader(value = "Token") String token,
-                                        @PathVariable("id") long id){
+                                        @PathVariable("id") int id){
         if(!jwtUtil.findTokenByValue(token)){
             throw new UsuarioException("Token invalido");
         }else{
@@ -107,7 +107,7 @@ public class UsuarioController {
      */
     @PostMapping(path = "/contrasena/cambiar")
     public boolean cambiarContrasena(@RequestHeader(value = "Token") String token,
-                                     @RequestParam("id") long id,
+                                     @RequestParam("id") int id,
                                      @RequestParam("contrasenaAntigua") String contrasenaAntigua,
                                      @RequestParam("contrasenaNueva") String contrasenaNueva){
         if(!jwtUtil.findTokenByValue(token)){

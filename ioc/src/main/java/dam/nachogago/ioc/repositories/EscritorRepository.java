@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EscritorRepository extends CrudRepository<EscritorModel, Long> {
+public interface EscritorRepository extends CrudRepository<EscritorModel, Integer> {
     /**
      * Devuelve los datos de un escritor introduciendo su nombre.
      * @param nombre Nombre del escritor que queremos buscar.

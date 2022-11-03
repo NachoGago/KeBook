@@ -55,7 +55,7 @@ public class EscritorController {
      */
     @GetMapping(path = "/{id}")
     public Optional<EscritorModel> obtenerEscritorPorId(@RequestHeader(value = "Token") String token,
-                                                        @PathVariable("id") long id){
+                                                        @PathVariable("id") int id){
         if(!jwtUtil.findTokenByValue(token)){
             throw new UsuarioException("Token invalido");
         }else{
@@ -71,7 +71,7 @@ public class EscritorController {
      */
     @DeleteMapping(path = "/{id}")
     public boolean eliminarEscritorPorId(@RequestHeader(value = "Token") String token,
-                                         @PathVariable("id") long id){
+                                         @PathVariable("id") int id){
         if(!jwtUtil.findTokenByValue(token)){
             throw new UsuarioException("Token invalido");
         }else{

@@ -9,7 +9,7 @@ public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique=true, nullable = false)
-    private long id;
+    private int id;
     @Column(nullable = false)
     private String nombre;
     @Column(unique = true, nullable = false)
@@ -19,11 +19,11 @@ public class UsuarioModel {
     private Date fecha_creacion;
     private boolean isAdmin;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UsuarioRepository extends CrudRepository<UsuarioModel, Long>{
+public interface UsuarioRepository extends CrudRepository<UsuarioModel, Integer>{
     /**
      * Busca los datos de un usuario pasando su correo.
      * @param correo Correo del usuario que queremos recuperar.
@@ -44,5 +44,5 @@ public interface UsuarioRepository extends CrudRepository<UsuarioModel, Long>{
      * @param contrasenaAntigua Contrasena antigua del usuario.
      */
     @Query(value = "UPDATE UsuarioModel u SET u.contrasena = ?1 WHERE u.id = ?2 AND u.contrasena = ?3")
-    void cambiarContrasena(String contrasenaNueva, long id, String contrasenaAntigua);
+    void cambiarContrasena(String contrasenaNueva, int id, String contrasenaAntigua);
 }

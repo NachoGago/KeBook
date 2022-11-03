@@ -36,7 +36,7 @@ public class EscritorService {
      * @param id Identificador del escritor que queremos buscar.
      * @return Devuevle los datos del escritor que tenga el id.
      */
-    public Optional<EscritorModel> obtenerPorId(long id){
+    public Optional<EscritorModel> obtenerPorId(int id){
         return escritorRepository.findById(id);
     }
 
@@ -54,7 +54,7 @@ public class EscritorService {
      * @param id Identificador del escritor que queremos eliminar.
      * @return Devuelve un booleano que indica si la operacion ha tenido exito.
      */
-    public boolean eliminarEscritor(long id){
+    public boolean eliminarEscritor(int id){
         try{
             escritorRepository.deleteById(id);
             return true;

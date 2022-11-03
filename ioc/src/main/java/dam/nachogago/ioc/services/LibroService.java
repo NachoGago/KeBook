@@ -38,7 +38,7 @@ public class LibroService {
     }
 
     public ArrayList<LibroModel> obtenerPorAutor(String nombreAutor){
-        long id_autor = escritorRepository.findByNombre(nombreAutor).getId();
+        int id_autor = escritorRepository.findByNombre(nombreAutor).getId();
         return libroRepository.findByAutor(id_autor);
     }
 

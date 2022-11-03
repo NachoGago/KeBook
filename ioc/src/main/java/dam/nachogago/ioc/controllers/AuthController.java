@@ -65,7 +65,7 @@ public class AuthController {
      * @return Devuelve true si se ha eliminado el token, y false si no.
      */
     @GetMapping(path = "/logout/{id}")
-    public boolean logout(@PathVariable("id") long id){
+    public boolean logout(@PathVariable("id") int id){
         if (jwtUtil.deleteToken(id)){
             return true;
         }else{

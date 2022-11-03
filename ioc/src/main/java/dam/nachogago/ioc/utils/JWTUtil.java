@@ -27,7 +27,7 @@ public class JWTUtil {
     private String issuer;
 
     @Value("${security.jwt.ttlMillis}")
-    private long ttlMillis;
+    private int ttlMillis;
 
     private final Logger log = LoggerFactory
             .getLogger(JWTUtil.class);
@@ -99,7 +99,7 @@ public class JWTUtil {
      * @param id Identificador del usuario que tiene asignado el token.
      * @return Devuelve true o false dependiendo de si lo ha podido remover correctamente.
      */
-    public boolean deleteToken(long id){
+    public boolean deleteToken(int id){
         if(findTokenByKey(id)){
             tokensMap.remove(id);
             return true;
@@ -113,7 +113,7 @@ public class JWTUtil {
      * @param id Identificador del usuario al que le asignaremos el token.
      * @param token Token que vamos a anadir a la lista de tokens activos.
      */
-    public void addToken(long id, String token){
+    public void addToken(int id, String token){
         tokensMap.put(id, token);
     }
 
@@ -131,7 +131,7 @@ public class JWTUtil {
      * @param id Id del usuario
      * @return Devuelve true o false dependiendo de si ha encontrado la clave en el mapa.
      */
-    public boolean findTokenByKey(long id){
+    public boolean findTokenByKey(int id){
         return tokensMap.containsKey(id);
     }
 

@@ -13,7 +13,7 @@ public class LibroModel {
     private String titulo;
 
     @ManyToOne(optional = false, targetEntity = EscritorModel.class)
-    private EscritorModel id_autor;
+    private EscritorModel autor;
 
     private String sinopsis;
 
@@ -39,12 +39,12 @@ public class LibroModel {
         this.titulo = titulo;
     }
 
-    public EscritorModel getId_autor() {
-        return id_autor;
+    public EscritorModel getAutor() {
+        return autor;
     }
 
-    public void setId_autor(EscritorModel id_autor) {
-        this.id_autor = id_autor;
+    public void setAutor(EscritorModel autor) {
+        this.autor = autor;
     }
 
     public String getSinopsis() {

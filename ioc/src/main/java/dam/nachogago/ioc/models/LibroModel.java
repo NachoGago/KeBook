@@ -13,6 +13,7 @@ public class LibroModel {
     private String titulo;
 
     @ManyToOne(optional = false, targetEntity = EscritorModel.class)
+    @JoinColumn(name = "id_autor")
     private EscritorModel autor;
 
     private String sinopsis;

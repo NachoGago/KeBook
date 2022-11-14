@@ -85,7 +85,7 @@ public class EscritorController {
      * @param nombre Nombre del escritor del que queremos la informacion.
      * @return Devuelve los datos del escritor.
      */
-    @GetMapping("/query")
+    @GetMapping("/nombre")
     public EscritorModel obtenerEscritorPorNombre(@RequestHeader(value = "Token") String token,
                                                   @RequestParam("nombre") String nombre){
         if(!jwtUtil.findTokenByValue(token)){

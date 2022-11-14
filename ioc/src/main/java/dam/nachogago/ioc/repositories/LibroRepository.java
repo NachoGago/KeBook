@@ -17,7 +17,7 @@ public interface LibroRepository extends CrudRepository<LibroModel, String> {
     @Query(value = "SELECT l FROM LibroModel l WHERE l.genero=?1")
     ArrayList<LibroModel> findByGenero(String genero);
 
-    @Query(value = "SELECT l FROM LibroModel l WHERE l.autor=?1")
+    @Query(value = "SELECT l FROM LibroModel l WHERE l.autor.id=?1")
     ArrayList<LibroModel> findByAutor(int id_autor);
 
     @Query(value = "SELECT l FROM LibroModel l WHERE l.disponible=true")

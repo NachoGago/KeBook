@@ -27,43 +27,79 @@ public class LibroController {
     }
 
     @PostMapping()
-    public LibroModel guardarLibro(@RequestBody LibroModel libro) {
-        return this.libroService.guardarLibro(libro);
+    public LibroModel guardarLibro(@RequestHeader(value = "Token") String token,
+                                   @RequestBody LibroModel libro) {
+        if (!jwtUtil.findTokenByValue(token)) {
+            throw new UsuarioException("Token invalido");
+        } else {
+            return this.libroService.guardarLibro(libro);
+        }
+
     }
 
     @GetMapping("/titulo")
     public LibroModel obtenerPorTitulo(@RequestHeader(value = "Token") String token,
-                                            @RequestParam("titulo") String titulo) {
-        return libroService.obtenerPorTitulo(titulo);
+                                       @RequestParam("titulo") String titulo) {
+        if (!jwtUtil.findTokenByValue(token)) {
+            throw new UsuarioException("Token invalido");
+        } else {
+            return libroService.obtenerPorTitulo(titulo);
+        }
+
     }
 
     @GetMapping("/{isbn}")
     public LibroModel obtenerPorIsbn(@RequestHeader(value = "Token") String token,
                                      @PathVariable("isbn") String isbn) {
-        return libroService.obtenerPorIsbn(isbn);
+        if (!jwtUtil.findTokenByValue(token)) {
+            throw new UsuarioException("Token invalido");
+        } else {
+            return libroService.obtenerPorIsbn(isbn);
+        }
+
     }
 
     @GetMapping(path = "/genero")
     public ArrayList<LibroModel> obtenerPorGenero(@RequestHeader(value = "Token") String token,
                                                   @RequestParam("genero") String genero) {
-        return libroService.obtenerPorGenero(genero);
+        if (!jwtUtil.findTokenByValue(token)) {
+            throw new UsuarioException("Token invalido");
+        } else {
+            return libroService.obtenerPorGenero(genero);
+        }
+
     }
 
     @GetMapping(path = "/autor")
     public ArrayList<LibroModel> obtenerPorAutor(@RequestHeader(value = "Token") String token,
                                                  @RequestParam("autor") String nombreAutor) {
-        return libroService.obtenerPorAutor(nombreAutor);
+        if (!jwtUtil.findTokenByValue(token)) {
+            throw new UsuarioException("Token invalido");
+        } else {
+            return libroService.obtenerPorAutor(nombreAutor);
+        }
+
     }
 
     @GetMapping(path = "/disponibles")
     public ArrayList<LibroModel> obtenerDisponibles(@RequestHeader(value = "Token") String token) {
-        return libroService.obtenerDisponibles();
+        if (!jwtUtil.findTokenByValue(token)) {
+            throw new UsuarioException("Token invalido");
+        } else {
+            return libroService.obtenerDisponibles();
+        }
+
     }
 
     @GetMapping(path = "/disponible/{isbn}")
     public boolean comprobarDisponibilidad(@RequestHeader(value = "Token") String token,
                                            @PathVariable("isbn")String isbn){
-        return libroService.comprobarDisponibilidad(isbn);
+        if (!jwtUtil.findTokenByValue(token)) {
+            throw new UsuarioException("Token invalido");
+        } else {
+            return libroService.comprobarDisponibilidad(isbn);
+        }
+
     }
 
 }

@@ -3,10 +3,12 @@ package dam.nachogago.ioc.repositories;
 import dam.nachogago.ioc.exceptions.UsuarioException;
 import dam.nachogago.ioc.models.UsuarioModel;
 import org.springframework.data.annotation.QueryAnnotation;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +45,8 @@ public interface UsuarioRepository extends CrudRepository<UsuarioModel, Integer>
      * @param id Id del usuario sobre el que queremos modificar la contrasena.
      * @param contrasenaAntigua Contrasena antigua del usuario.
      */
+    @Modifying
+    @Transactional
     @Query(value = "UPDATE UsuarioModel u SET u.contrasena = ?1 WHERE u.id = ?2 AND u.contrasena = ?3")
     void cambiarContrasena(String contrasenaNueva, int id, String contrasenaAntigua);
 }

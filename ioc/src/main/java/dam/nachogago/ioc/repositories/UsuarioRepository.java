@@ -1,8 +1,6 @@
 package dam.nachogago.ioc.repositories;
 
-import dam.nachogago.ioc.exceptions.UsuarioException;
 import dam.nachogago.ioc.models.UsuarioModel;
-import org.springframework.data.annotation.QueryAnnotation;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

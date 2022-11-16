@@ -30,7 +30,7 @@ public class ReservaController {
 
     @PostMapping()
     public void guardarReserva(@RequestHeader(value = "Token") String token,
-                                       @RequestBody ReservaModel reserva){
+                               @RequestBody ReservaModel reserva){
         if (!jwtUtil.findTokenByValue(token)) {
             throw new UsuarioException("Token invalido");
         } else {
@@ -50,8 +50,8 @@ public class ReservaController {
 
     @GetMapping("/{isbn}/usuario")
     public ArrayList<ReservaModel> obtenerReservasDeLibroPorUsuario(@RequestHeader(value = "Token") String token,
-                                                                              @PathVariable("isbn") String isbn,
-                                                                              @RequestParam("idUsuario") int id_usuario){
+                                                                    @PathVariable("isbn") String isbn,
+                                                                    @RequestParam("idUsuario") int id_usuario){
         if (!jwtUtil.findTokenByValue(token)) {
             throw new UsuarioException("Token invalido");
         } else {
@@ -76,6 +76,26 @@ public class ReservaController {
             throw new UsuarioException("Token invalido");
         } else {
             return this.reservaService.comprobarReservaDevuelta(id_reserva);
+        }
+    }
+
+    @PostMapping("/{idReserva}/recogido")
+    public void confirmarRecogida(@RequestHeader(value = "Token") String token,
+                                  @PathVariable("idReserva") int id_reserva){
+        if (!jwtUtil.findTokenByValue(token)) {
+            throw new UsuarioException("Token invalido");
+        } else {
+            reservaService.confirmarRecogida(id_reserva);
+        }
+    }
+
+    @PostMapping("/{idReserva}/devuelto")
+    public void confirmarDevolucion(@RequestHeader(value = "Token") String token,
+                                    @PathVariable("idReserva") int id_reserva){
+        if (!jwtUtil.findTokenByValue(token)) {
+            throw new UsuarioException("Token invalido");
+        } else {
+            reservaService.confirmarDevolucion(id_reserva);
         }
     }
 

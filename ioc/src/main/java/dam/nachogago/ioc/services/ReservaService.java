@@ -38,4 +38,12 @@ public class ReservaService {
     public boolean comprobarReservaDevuelta(int id_reserva) {
         return reservaRepository.comprobarReservaDevuelta(id_reserva);
     }
+
+    public void confirmarRecogida(int id_reserva) {
+        reservaRepository.confirmarRecogida(id_reserva, true);
+    }
+
+    public void confirmarDevolucion(int id_reserva) {
+        reservaRepository.confirmarDevolucion(id_reserva, true);
+    }
 }

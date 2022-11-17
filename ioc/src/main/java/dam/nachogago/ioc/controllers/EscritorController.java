@@ -21,6 +21,7 @@ public class EscritorController {
 
     /**
      * Permite ver una lista de todos los escritores que hay en la base de datos.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
      * @return Devuelve una lista con todos los escritores.
      */
     @GetMapping()
@@ -35,6 +36,7 @@ public class EscritorController {
 
     /**
      * Permite guardar un nuevo escritor en la base de datos.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
      * @param escritor Datos del escritor a guardar en la base de datos.
      * @return Devuelve los datos que se han guardado en la base de datos.
      */
@@ -50,6 +52,7 @@ public class EscritorController {
 
     /**
      * Permite ver la informacion del escritor con el id que pasa por parametro.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
      * @param id Identificador del escritor del cual queremos la informacion.
      * @return Devuelve la informacion del escritor.
      */
@@ -66,6 +69,7 @@ public class EscritorController {
 
     /**
      * Permite eliminar un escritor de la base de datos.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
      * @param id Identificador del escritor que se quiere eliminar.
      * @return Devuelve un booleano indicando si la operacion ha tenido exito.
      */
@@ -82,6 +86,7 @@ public class EscritorController {
 
     /**
      * Permite recuperar la informacion del escritor introduciendo su nombre.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
      * @param nombre Nombre del escritor del que queremos la informacion.
      * @return Devuelve los datos del escritor.
      */

@@ -19,6 +19,11 @@ public class ReservaController {
     @Autowired
     JWTUtil jwtUtil;
 
+    /**
+     * Obtiene una lista de todas las reservas en la base de datos.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @return Devuelve una lista de todas las reservas en la base de datos.
+     */
     @GetMapping
     public ArrayList<ReservaModel> obtenerReservas (@RequestHeader(value = "Token") String token){
         if (!jwtUtil.findTokenByValue(token)) {
@@ -28,6 +33,11 @@ public class ReservaController {
         }
     }
 
+    /**
+     * Guarda una nueva reserva en la base de datos.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param reserva Datos de la reserva que queremos guardar.
+     */
     @PostMapping()
     public void guardarReserva(@RequestHeader(value = "Token") String token,
                                @RequestBody ReservaModel reserva){
@@ -38,6 +48,12 @@ public class ReservaController {
         }
     }
 
+    /**
+     * Obtiene una lista de todas las reservas hechas por un usuario.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param id_usuario Id del usuario del que queremos obtener las reservas.
+     * @return Devuelve una lista de todas las reservas hechas por un usuario.
+     */
     @GetMapping("/usuario")
     public ArrayList<ReservaModel> obtenerReservasPorUsuario(@RequestHeader(value = "Token") String token,
                                                              @RequestParam("idUsuario") int id_usuario){
@@ -48,6 +64,13 @@ public class ReservaController {
         }
     }
 
+    /**
+     * Obtiene una lista de todas las reservas que ha hecho un usuario de un libro en concreto.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param isbn ISBN del libro del que queremos comprobar las reservas.
+     * @param id_usuario Id del usuario del que queremos comprobar las reservas.
+     * @return Devuelve la lista de todas las reservas que ha hecho el usuario de este libro.
+     */
     @GetMapping("/{isbn}/usuario")
     public ArrayList<ReservaModel> obtenerReservasDeLibroPorUsuario(@RequestHeader(value = "Token") String token,
                                                                     @PathVariable("isbn") String isbn,
@@ -59,6 +82,12 @@ public class ReservaController {
         }
     }
 
+    /**
+     * Comprueba la reserva ha sido recogida.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param id_reserva Id de la reserva que queremos comprobar.
+     * @return Devuelve true o false dependiendo de si la reserva ha sido recogida.
+     */
     @GetMapping("/recogido")
     public boolean comprobarReservaRecogida(@RequestHeader(value = "Token") String token,
                                             @RequestParam("idReserva") int id_reserva){
@@ -69,6 +98,12 @@ public class ReservaController {
         }
     }
 
+    /**
+     * Comprueba si la reserva ha sido devuelta.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param id_reserva Id de la reserva que queremos comprobar.
+     * @return Devuelve true o false dependiendo de si la reserva ha sido devuelta.
+     */
     @GetMapping("/devuelto")
     public boolean comprobarReservaDevuelta(@RequestHeader(value = "Token") String token,
                                             @RequestParam("idReserva") int id_reserva){
@@ -79,6 +114,11 @@ public class ReservaController {
         }
     }
 
+    /**
+     * Confirma que la reserva ha sido recogida.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param id_reserva Id de la reserva que queremos confimar la recogida.
+     */
     @PostMapping("/{idReserva}/recogido")
     public void confirmarRecogida(@RequestHeader(value = "Token") String token,
                                   @PathVariable("idReserva") int id_reserva){
@@ -89,6 +129,11 @@ public class ReservaController {
         }
     }
 
+    /**
+     * Confirma que la reserva ha sido devuelta.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param id_reserva Id de la reserva que queremos confimar la devolucion.
+     */
     @PostMapping("/{idReserva}/devuelto")
     public void confirmarDevolucion(@RequestHeader(value = "Token") String token,
                                     @PathVariable("idReserva") int id_reserva){

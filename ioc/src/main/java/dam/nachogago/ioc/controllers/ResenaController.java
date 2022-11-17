@@ -19,6 +19,11 @@ public class ResenaController {
     @Autowired
     JWTUtil jwtUtil;
 
+    /**
+     * Obtiene una lista de todas las resenas en la base de datos.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @return Devuelve una lista de todas las resenas en la base de datos.
+     */
     @GetMapping
     public ArrayList<ResenaModel> obtenerResenas (@RequestHeader(value = "Token") String token){
         if (!jwtUtil.findTokenByValue(token)) {
@@ -28,6 +33,11 @@ public class ResenaController {
         }
     }
 
+    /**
+     * Guarda una nueva resena en la base de datos.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param resena Datos de la resena que queremos guardar en la base de datos.
+     */
     @PostMapping
     public void guardarResena(@RequestHeader(value = "Token") String token,
                               @RequestBody ResenaModel resena){
@@ -39,6 +49,12 @@ public class ResenaController {
 
     }
 
+    /**
+     * Obtiene los datos de una resena pasando el id como parametro.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param id_resena Id de la resena que queremos obtener.
+     * @return Devuelve la resena.
+     */
     @GetMapping("/{id}")
     public ResenaModel obtenerResenaPorId(@RequestHeader(value = "Token") String token,
                                           @PathVariable("id") int id_resena){
@@ -49,6 +65,12 @@ public class ResenaController {
         }
     }
 
+    /**
+     * Obtiene todas las resenas hechas por un usuario.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param id_usuario Id del usuario del que queremos obtener las resenas.
+     * @return Devuelve todas las resenas de un usuario.
+     */
     @GetMapping("/usuario")
     public ArrayList<ResenaModel> obtenerResenasUsuario(@RequestHeader(value = "Token") String token,
                                                         @RequestParam("idUsuario") int id_usuario){
@@ -59,6 +81,13 @@ public class ResenaController {
         }
     }
 
+    /**
+     * Obtiene las resenas que ha hecho un usuario sobre un libro en concreto.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param isbn ISBN del libro del que queremos las resenas.
+     * @param id_usuario Id del usuario el que queremos las resenas.
+     * @return Devuelve las resenas hechas por un usuario sobre un libro.
+     */
     @GetMapping("/{isbn}/usuario")
     public ArrayList<ResenaModel> obtenerResenasDeLibroPorUsuario(@RequestHeader(value = "Token") String token,
                                                                   @PathVariable("isbn") String isbn,
@@ -70,6 +99,12 @@ public class ResenaController {
         }
     }
 
+    /**
+     * Elimina una resena de la base de datos pasando el id como parametro.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param id_resena Id de la resena que queremos eliminar.
+     * @return Devuelve true o false dependiendo de si la resena se ha podido eliminar correctamente o no.
+     */
     @DeleteMapping("/borrar")
     public boolean eliminarResena(@RequestHeader(value = "Token") String token,
                                   @RequestParam("idResena") int id_resena){

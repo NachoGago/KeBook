@@ -111,16 +111,18 @@ public class UsuarioService {
      * @return Devuelve un booleano indicando si la operacion ha tenido exito o no.
      */
     public boolean cambiarContrasena(String contrasenaNueva, int id, String contrasenaAntigua){
-        usuarioRepository.cambiarContrasena(contrasenaNueva, id, contrasenaAntigua);
-
         UsuarioModel usuario = this.obtenerPorId(id);
 
-        if(usuario != null && usuario.getContrasena().equals(contrasenaNueva)){
-            return true;
+        if(usuario != null){
+            if(usuario.getContrasena().equals(contrasenaAntigua)){
+                usuarioRepository.cambiarContrasena(contrasenaNueva, id, contrasenaAntigua);
+                return true;
+            }else{
+                return false;
+            }
         }else{
             return false;
         }
-
     }
 
 }

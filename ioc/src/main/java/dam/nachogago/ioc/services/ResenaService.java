@@ -75,4 +75,13 @@ public class ResenaService {
     public ResenaModel obtenerResenaPorId(int id_resena) {
         return resenaRepository.obtenerResenaPorId(id_resena).orElseThrow(()->new ReservaException("No existe reseña con este id."));
     }
+
+    /**
+     * Obtiene todas las resenas sobre un libro concreto.
+     * @param isbn ISBN del libro del cual queremos la resena.
+     * @return Devuelve una lista de todas las resenas sobre el libro.
+     */
+    public ArrayList<ResenaModel> obtenerResenaPorLibro(String isbn) {
+        return resenaRepository.obtenerResenaPorLibro(isbn);
+    }
 }

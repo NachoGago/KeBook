@@ -46,4 +46,12 @@ public interface ResenaRepository extends CrudRepository<ResenaModel, Integer> {
     @Transactional
     @Query(value = "DELETE FROM ResenaModel r WHERE r.id=?1")
     void eliminarResena(int id_resena);
+
+    /**
+     * Obtiene todas las resenas sobre un libro concreto.
+     * @param isbn ISBN del libro del cual queremos la resena.
+     * @return Devuelve una lista de todas las resenas sobre el libro.
+     */
+    @Query(value = "SELECT r FROM ResenaModel r WHERE r.libro.isbn=?1")
+    ArrayList<ResenaModel> obtenerResenaPorLibro(String isbn);
 }

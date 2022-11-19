@@ -115,4 +115,20 @@ public class ResenaController {
         }
     }
 
+    /**
+     * Obtiene todas las resenas sobre un libro concreto.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param isbn ISBN del libro del cual queremos la resena.
+     * @return Devuelve una lista de todas las resenas sobre el libro.
+     */
+    @GetMapping("/libro")
+    public ArrayList<ResenaModel> obtenerResenaPorLibro(@RequestHeader(value = "Token") String token,
+                                                        @RequestParam("isbn") String isbn){
+        if (!jwtUtil.findTokenByValue(token)) {
+            throw new UsuarioException("Token invalido");
+        } else {
+            return resenaService.obtenerResenaPorLibro(isbn);
+        }
+    }
+
 }

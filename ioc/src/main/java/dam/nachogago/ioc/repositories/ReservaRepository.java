@@ -67,6 +67,11 @@ public interface ReservaRepository extends CrudRepository<ReservaModel, Integer>
     @Query(value = "UPDATE ReservaModel r SET r.devuelto=?2 WHERE r.id=?1")
     void confirmarDevolucion(int id_reserva, boolean devuelto);
 
+    /**
+     * Obtiene una lista de todas las reservas que se han hecho sobre un libro.
+     * @param isbn ISBN del libro del que queremos obtener las reservas.
+     * @return Devuelve la lista de las reservas que se han hecho sobre el libro.
+     */
     @Query(value = "SELECT r FROM ReservaModel r WHERE r.libro.isbn=?1")
     ArrayList<ReservaModel> obtenerReservasPorLibro(String isbn);
 }

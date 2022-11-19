@@ -84,6 +84,11 @@ public class ReservaService {
         reservaRepository.confirmarDevolucion(id_reserva, true);
     }
 
+    /**
+     * Obtiene una lista de todas las reservas que se han hecho sobre un libro.
+     * @param isbn ISBN del libro del que queremos obtener las reservas.
+     * @return Devuelve la lista de las reservas que se han hecho sobre el libro.
+     */
     public ArrayList<ReservaModel> obtenerReservasPorLibro(String isbn) {
         return reservaRepository.obtenerReservasPorLibro(isbn);
     }

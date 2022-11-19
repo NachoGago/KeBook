@@ -144,6 +144,12 @@ public class ReservaController {
         }
     }
 
+    /**
+     * Obtiene una lista de todas las reservas que se han hecho sobre un libro.
+     * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
+     * @param isbn ISBN del libro del que queremos obtener las reservas.
+     * @return Devuelve la lista de las reservas que se han hecho sobre el libro.
+     */
     @GetMapping("/{isbn}")
     public ArrayList<ReservaModel> obtenerReservasPorLibro (@RequestHeader(value = "Token") String token,
                                                             @PathVariable("isbn") String isbn){

@@ -83,4 +83,8 @@ public class ReservaService {
     public void confirmarDevolucion(int id_reserva) {
         reservaRepository.confirmarDevolucion(id_reserva, true);
     }
+
+    public ArrayList<ReservaModel> obtenerReservasPorLibro(String isbn) {
+        return reservaRepository.obtenerReservasPorLibro(isbn);
+    }
 }

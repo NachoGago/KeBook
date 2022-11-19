@@ -144,5 +144,15 @@ public class ReservaController {
         }
     }
 
+    @GetMapping("/{isbn}")
+    public ArrayList<ReservaModel> obtenerReservasPorLibro (@RequestHeader(value = "Token") String token,
+                                                            @PathVariable("isbn") String isbn){
+        if (!jwtUtil.findTokenByValue(token)) {
+            throw new UsuarioException("Token invalido");
+        } else {
+            return reservaService.obtenerReservasPorLibro(isbn);
+        }
+    }
+
 
 }

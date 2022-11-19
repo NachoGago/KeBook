@@ -66,4 +66,7 @@ public interface ReservaRepository extends CrudRepository<ReservaModel, Integer>
     @Transactional
     @Query(value = "UPDATE ReservaModel r SET r.devuelto=?2 WHERE r.id=?1")
     void confirmarDevolucion(int id_reserva, boolean devuelto);
+
+    @Query(value = "SELECT r FROM ReservaModel r WHERE r.libro.isbn=?1")
+    ArrayList<ReservaModel> obtenerReservasPorLibro(String isbn);
 }

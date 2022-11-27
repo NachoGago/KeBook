@@ -1,7 +1,9 @@
 package dam.nachogago.ioc.services;
 
 import dam.nachogago.ioc.exceptions.ReservaException;
+import dam.nachogago.ioc.models.LibroModel;
 import dam.nachogago.ioc.models.ReservaModel;
+import dam.nachogago.ioc.repositories.LibroRepository;
 import dam.nachogago.ioc.repositories.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ public class ReservaService {
 
     @Autowired
     ReservaRepository reservaRepository;
+    @Autowired
+    LibroRepository libroRepository;
 
     /**
      * Obtiene una lista de todas las reservas en la base de datos.
@@ -25,10 +29,19 @@ public class ReservaService {
 
     /**
      * Guarda una nueva reserva en la base de datos.
+     *
      * @param reserva Datos de la reserva que queremos guardar.
+     * @return
      */
-    public void guardarReserva(ReservaModel reserva) {
-        reservaRepository.save(reserva);
+    public boolean guardarReserva(ReservaModel reserva) {
+        ArrayList<LibroModel> libro = libroRepository.comprobarDisponibilidad(reserva.getLibro().getIsbn());
+        if (!libro.isEmpty()){
+            reservaRepository.save(reserva);
+            libroRepository.cambiarDisponibilidadAFalse(reserva.getLibro().getIsbn());
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -82,6 +95,10 @@ public class ReservaService {
      */
     public void confirmarDevolucion(int id_reserva) {
         reservaRepository.confirmarDevolucion(id_reserva, true);
+        Optional<ReservaModel> reserva = reservaRepository.findById(id_reserva);
+        if (!reserva.isEmpty()){
+            libroRepository.cambiarDisponibilidadATrue(reserva.get().getLibro().getIsbn());
+        }
     }
 
     /**

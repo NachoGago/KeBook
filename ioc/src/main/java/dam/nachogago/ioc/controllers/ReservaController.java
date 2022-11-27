@@ -39,12 +39,12 @@ public class ReservaController {
      * @param reserva Datos de la reserva que queremos guardar.
      */
     @PostMapping()
-    public void guardarReserva(@RequestHeader(value = "Token") String token,
+    public boolean guardarReserva(@RequestHeader(value = "Token") String token,
                                @RequestBody ReservaModel reserva){
         if (!jwtUtil.findTokenByValue(token)) {
             throw new UsuarioException("Token invalido");
         } else {
-            this.reservaService.guardarReserva(reserva);
+            return this.reservaService.guardarReserva(reserva);
         }
     }
 

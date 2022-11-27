@@ -1,10 +1,12 @@
 package dam.nachogago.ioc.repositories;
 
 import dam.nachogago.ioc.models.LibroModel;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -49,4 +51,15 @@ public interface LibroRepository extends CrudRepository<LibroModel, String> {
      */
     @Query(value = "SELECT l FROM LibroModel l WHERE l.isbn=?1 AND l.disponible=true")
     ArrayList<LibroModel> comprobarDisponibilidad(String isbn);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE LibroModel l SET l.disponible=true WHERE l.isbn=?1")
+    void cambiarDisponibilidadATrue(String isbn);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE LibroModel l SET l.disponible=false WHERE l.isbn=?1")
+    void cambiarDisponibilidadAFalse(String isbn);
+
 }

@@ -23,7 +23,7 @@ public class AuthController {
      * @return Devuelve el JWT Token para que el usuario pueda hacer las consultas al servidor.
      */
     @GetMapping(path = "/login/{correo}/{contrasena}")
-    public String login(@PathVariable("correo") String correo, @PathVariable("contrasena") String contrasena){
+    public String login(@PathVariable("correo") String correo, @PathVariable("contrasena") String contrasena) throws Exception{
 
         UsuarioModel usuario = usuarioService.obtenerUsuarioPorCredenciales(correo, contrasena);
 
@@ -45,7 +45,7 @@ public class AuthController {
      * @return Devuelve el JWT Token para que el usuario administrador pueda hacer las consultas al servidor.
      */
     @GetMapping(path = "/login/admin/{correo}/{contrasena}")
-    public String loginAdmin(@PathVariable("correo") String correo, @PathVariable("contrasena") String contrasena){
+    public String loginAdmin(@PathVariable("correo") String correo, @PathVariable("contrasena") String contrasena) throws Exception{
 
         UsuarioModel usuario = usuarioService.obtenerUsuarioPorCredencialesAdmin(correo, contrasena);
 

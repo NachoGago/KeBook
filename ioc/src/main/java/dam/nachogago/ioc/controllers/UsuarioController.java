@@ -41,7 +41,7 @@ public class UsuarioController {
      * @return Devuelve los datos del usuario que se acaba de registrar.
      */
     @PostMapping()
-    public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario){
+    public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario) throws Exception{
         return this.usuarioService.guardarUsuario(usuario);
     }
 
@@ -109,7 +109,7 @@ public class UsuarioController {
     public boolean cambiarContrasena(@RequestHeader(value = "Token") String token,
                                      @RequestParam("id") int id,
                                      @RequestParam("contrasenaAntigua") String contrasenaAntigua,
-                                     @RequestParam("contrasenaNueva") String contrasenaNueva){
+                                     @RequestParam("contrasenaNueva") String contrasenaNueva) throws Exception{
         if(!jwtUtil.findTokenByValue(token)){
             throw new UsuarioException("Token invalido");
         }else{

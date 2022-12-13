@@ -2,8 +2,10 @@ package dam.nachogago.ioc.services;
 
 import dam.nachogago.ioc.exceptions.UsuarioException;
 import dam.nachogago.ioc.models.UsuarioModel;
+import dam.nachogago.ioc.utils.Encryption;
 import org.hibernate.jpa.boot.spi.EntityManagerFactoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import dam.nachogago.ioc.repositories.UsuarioRepository;
@@ -21,6 +23,8 @@ public class UsuarioService {
     UsuarioRepository usuarioRepository;
     @Autowired
     EntityManager entityManager;
+    @Autowired
+    Encryption encryption;
 
     /**
      * Devuelve una lista de todos los usuarios de la base de datos.
@@ -35,7 +39,10 @@ public class UsuarioService {
      * @param usuario Datos del usuario a registrar.
      * @return Devuelve la informacion del usuario registrado.
      */
-    public UsuarioModel guardarUsuario(UsuarioModel usuario){
+    public UsuarioModel guardarUsuario(UsuarioModel usuario) throws Exception{
+        encryption.initFromStrings(Encryption.STRING_KEY, Encryption.STRING_IV);
+        String contrasenaEncriptada = encryption.encrypt(usuario.getContrasena());
+        usuario.setContrasena(contrasenaEncriptada);
         return usuarioRepository.save(usuario);
     }
 
@@ -77,13 +84,18 @@ public class UsuarioService {
      * @param contrasena Contrasena del usuario del que queremos los datos.
      * @return Devuelve los datos del usuario.
      */
-    public UsuarioModel obtenerUsuarioPorCredenciales(String correo, String contrasena) {
-        List<UsuarioModel> lista = usuarioRepository.obtenerUsuarioPorCredenciales(correo, contrasena);
+    public UsuarioModel obtenerUsuarioPorCredenciales(String correo, String contrasena) throws Exception{
+        encryption.initFromStrings(Encryption.STRING_KEY, Encryption.STRING_IV);
+        String contrasenaEncriptada = encryption.encrypt(contrasena);
+        List<UsuarioModel> lista = usuarioRepository.obtenerUsuarioPorCredenciales(correo, contrasenaEncriptada);
 
         if(lista.isEmpty()){
             return null;
         }else {
-            return lista.get(0);
+            UsuarioModel usuario = lista.get(0);
+            String contrasenaDesencriptada = encryption.decrypt(usuario.getContrasena());
+            usuario.setContrasena(contrasenaDesencriptada);
+            return usuario;
         }
     }
 
@@ -93,13 +105,18 @@ public class UsuarioService {
      * @param contrasena Contrasena del usuario del que queremos los datos.
      * @return Devuelve los datos del usuario.
      */
-    public UsuarioModel obtenerUsuarioPorCredencialesAdmin(String correo, String contrasena) {
-        List<UsuarioModel> lista = usuarioRepository.obtenerUsuarioPorCredencialesAdmin(correo, contrasena);
+    public UsuarioModel obtenerUsuarioPorCredencialesAdmin(String correo, String contrasena) throws Exception{
+        encryption.initFromStrings(Encryption.STRING_KEY, Encryption.STRING_IV);
+        String contrasenaEncriptada = encryption.encrypt(contrasena);
+        List<UsuarioModel> lista = usuarioRepository.obtenerUsuarioPorCredencialesAdmin(correo, contrasenaEncriptada);
 
         if(lista.isEmpty()){
             return null;
         }else {
-            return lista.get(0);
+            UsuarioModel usuario = lista.get(0);
+            String contrasenaDesencriptada = encryption.decrypt(usuario.getContrasena());
+            usuario.setContrasena(contrasenaDesencriptada);
+            return usuario;
         }
     }
 
@@ -110,12 +127,15 @@ public class UsuarioService {
      * @param contrasenaAntigua Contrasena antigua del usuario.
      * @return Devuelve un booleano indicando si la operacion ha tenido exito o no.
      */
-    public boolean cambiarContrasena(String contrasenaNueva, int id, String contrasenaAntigua){
+    public boolean cambiarContrasena(String contrasenaNueva, int id, String contrasenaAntigua) throws Exception{
         UsuarioModel usuario = this.obtenerPorId(id);
 
         if(usuario != null){
-            if(usuario.getContrasena().equals(contrasenaAntigua)){
-                usuarioRepository.cambiarContrasena(contrasenaNueva, id, contrasenaAntigua);
+            encryption.initFromStrings(Encryption.STRING_KEY, Encryption.STRING_IV);
+            String contrasenaAntiguaEncriptada = encryption.encrypt(contrasenaAntigua);
+            if(usuario.getContrasena().equals(contrasenaAntiguaEncriptada)){
+                String contrasenaNuevaEncriptada = encryption.encrypt(contrasenaNueva);
+                usuarioRepository.cambiarContrasena(contrasenaNuevaEncriptada, id, contrasenaAntiguaEncriptada);
                 return true;
             }else{
                 return false;

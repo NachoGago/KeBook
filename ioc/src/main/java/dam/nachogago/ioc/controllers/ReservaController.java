@@ -37,6 +37,7 @@ public class ReservaController {
      * Guarda una nueva reserva en la base de datos.
      * @param token Codigo para verificar que el usuario esta autorizado para hacer la consulta.
      * @param reserva Datos de la reserva que queremos guardar.
+     * @return Devuelve true o false dependiendo de si puede guardar la nueva reserva o no.
      */
     @PostMapping()
     public boolean guardarReserva(@RequestHeader(value = "Token") String token,

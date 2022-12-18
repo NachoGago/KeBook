@@ -39,6 +39,7 @@ public class UsuarioController {
      * Guarda un nuevo usuario a la base de datos.
      * @param usuario Datos del usuario a guardar.
      * @return Devuelve los datos del usuario que se acaba de registrar.
+     * @throws Exception
      */
     @PostMapping()
     public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario) throws Exception{
@@ -104,6 +105,7 @@ public class UsuarioController {
      * @param contrasenaAntigua Contrasena antigua del usuario.
      * @param contrasenaNueva Nueva contrasena para el usuario.
      * @return Devuelve un booleano indicando si la operacion ha tenido exito o no.
+     * @throws Exception
      */
     @PostMapping(path = "/contrasena/cambiar")
     public boolean cambiarContrasena(@RequestHeader(value = "Token") String token,

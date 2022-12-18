@@ -38,6 +38,7 @@ public class UsuarioService {
      * Guarda un nuevo usuario a la base de datos.
      * @param usuario Datos del usuario a registrar.
      * @return Devuelve la informacion del usuario registrado.
+     * @throws Exception
      */
     public UsuarioModel guardarUsuario(UsuarioModel usuario) throws Exception{
         encryption.initFromStrings(Encryption.STRING_KEY, Encryption.STRING_IV);
@@ -83,6 +84,7 @@ public class UsuarioService {
      * @param correo Correo del usuario del que queremos los datos.
      * @param contrasena Contrasena del usuario del que queremos los datos.
      * @return Devuelve los datos del usuario.
+     * @throws Exception
      */
     public UsuarioModel obtenerUsuarioPorCredenciales(String correo, String contrasena) throws Exception{
         encryption.initFromStrings(Encryption.STRING_KEY, Encryption.STRING_IV);
@@ -104,6 +106,7 @@ public class UsuarioService {
      * @param correo Correo del usuario del que queremos los datos.
      * @param contrasena Contrasena del usuario del que queremos los datos.
      * @return Devuelve los datos del usuario.
+     * @throws Exception
      */
     public UsuarioModel obtenerUsuarioPorCredencialesAdmin(String correo, String contrasena) throws Exception{
         encryption.initFromStrings(Encryption.STRING_KEY, Encryption.STRING_IV);
@@ -126,6 +129,7 @@ public class UsuarioService {
      * @param id Id del usuario sobre el que queremos modificar la contrasena.
      * @param contrasenaAntigua Contrasena antigua del usuario.
      * @return Devuelve un booleano indicando si la operacion ha tenido exito o no.
+     * @throws Exception
      */
     public boolean cambiarContrasena(String contrasenaNueva, int id, String contrasenaAntigua) throws Exception{
         UsuarioModel usuario = this.obtenerPorId(id);

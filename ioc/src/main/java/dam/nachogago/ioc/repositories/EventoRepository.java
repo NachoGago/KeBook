@@ -24,7 +24,6 @@ public interface EventoRepository extends CrudRepository<EventoModel, Integer> {
      * Aprueba un evento de la bbdd.
      * @param idEvento ID del evento que queremos aprobar.
      * @param idAdmin ID del administrador que está aprobando el evento.
-     * @return Devuelve true o false dependiendo de si ha podido aprobar el evento o no.
      */
     @Modifying
     @Transactional

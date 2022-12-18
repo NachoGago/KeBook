@@ -31,7 +31,7 @@ public class ReservaService {
      * Guarda una nueva reserva en la base de datos.
      *
      * @param reserva Datos de la reserva que queremos guardar.
-     * @return
+     * @return Devuelve true o false dependiendo de si puede guardar una nueva reserva.
      */
     public boolean guardarReserva(ReservaModel reserva) {
         ArrayList<LibroModel> libro = libroRepository.comprobarDisponibilidad(reserva.getLibro().getIsbn());

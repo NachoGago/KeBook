@@ -21,6 +21,7 @@ public class AuthController {
      * @param correo Correo electronico del usuario.
      * @param contrasena Contrasena del usuario.
      * @return Devuelve el JWT Token para que el usuario pueda hacer las consultas al servidor.
+     * @throws Exception
      */
     @GetMapping(path = "/login/{correo}/{contrasena}")
     public String login(@PathVariable("correo") String correo, @PathVariable("contrasena") String contrasena) throws Exception{
@@ -43,6 +44,7 @@ public class AuthController {
      * @param correo Correo electronico del usuario.
      * @param contrasena Contrasena del usuario.
      * @return Devuelve el JWT Token para que el usuario administrador pueda hacer las consultas al servidor.
+     * @throws Exception
      */
     @GetMapping(path = "/login/admin/{correo}/{contrasena}")
     public String loginAdmin(@PathVariable("correo") String correo, @PathVariable("contrasena") String contrasena) throws Exception{
